@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { AppTab } from './types';
 import SyncPanel from './components/SyncPanel';
@@ -16,7 +15,6 @@ const App: React.FC = () => {
   const fetchMedicines = useCallback(async () => {
     setIsLoading(true);
     try {
-      // 使用 cache: 'no-cache' 確保每次自動同步都是最新的
       const response = await fetch(`${CSV_URL}&t=${Date.now()}`, {
         cache: 'no-cache'
       });
@@ -45,7 +43,6 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // 設置進來直接自動同步
     fetchMedicines();
 
     const ua = navigator.userAgent || navigator.vendor || (window as any).opera;
@@ -69,41 +66,20 @@ const App: React.FC = () => {
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-8">
             <i className="fas fa-compass text-3xl"></i>
           </div>
-          <h2 className="text-2xl font-black mb-4 tracking-tighter">請使用瀏覽器開啟</h2>
-          <p className="text-green-100 text-sm leading-relaxed mb-10 opacity-90 max-w-[240px]">
-            為確保搜尋效能與安全性，<br/>請點選右上角圖示切換瀏覽器。
+          <h2 className="text-2xl font-black mb-4 tracking-tighter text-white">請使用外部瀏覽器開啟</h2>
+          <p className="text-green-100 text-sm leading-relaxed mb-10 opacity-90">
+            為確保搜尋效能，請點選右上角圖示切換。
           </p>
-          <div className="space-y-4 w-full max-w-xs text-left">
-            <div className="bg-white/10 backdrop-blur-md p-5 rounded-3xl border border-white/10 flex items-center gap-4">
-              <div className="bg-[#006241] text-green-100 w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-green-700">1</div>
-              <p className="text-sm font-bold">點擊右上角 <i className="fas fa-ellipsis-v mx-1"></i> 或分享圖示</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md p-5 rounded-3xl border border-white/10 flex items-center gap-4">
-              <div className="bg-[#006241] text-green-100 w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 border border-green-700">2</div>
-              <p className="text-sm font-bold">選擇「在瀏覽器中開啟」</p>
-            </div>
-          </div>
           <button 
             onClick={() => setIsRestrictedBrowser(false)}
-            className="mt-16 text-white/30 text-[10px] font-bold uppercase tracking-widest"
+            className="px-8 py-3 bg-white/10 rounded-full text-xs font-bold uppercase tracking-widest border border-white/20"
           >
-            直接進入系統 <i className="fas fa-chevron-right ml-1"></i>
+            直接進入系統
           </button>
         </div>
       </div>
     );
   }
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case AppTab.MEDICINE:
-        return <MedicineQuery medicines={medicines} isLoading={isLoading} />;
-      case AppTab.SYNC:
-        return <SyncPanel onSync={fetchMedicines} isSyncing={isLoading} lastSync={lastSync} />;
-      default:
-        return <MedicineQuery medicines={medicines} isLoading={isLoading} />;
-    }
-  };
 
   return (
     <div className="h-screen bg-slate-100 flex justify-center overflow-hidden font-sans">
@@ -117,37 +93,33 @@ const App: React.FC = () => {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto bg-slate-50 relative pb-24 scroll-smooth">
-          {renderContent()}
+        <main className="flex-1 overflow-y-auto bg-slate-50 relative pb-24 hide-scrollbar">
+          {activeTab === AppTab.MEDICINE ? (
+            <MedicineQuery medicines={medicines} isLoading={isLoading} />
+          ) : (
+            <SyncPanel onSync={fetchMedicines} isSyncing={isLoading} lastSync={lastSync} />
+          )}
           
-          {/* 頁尾維護資訊區塊 */}
           <div className="py-14 px-6 text-center space-y-2 border-t border-slate-100 bg-white/50">
-            <div className="h-1 w-12 bg-[#006241]/20 mx-auto mb-4 rounded-full"></div>
-            <p className="text-slate-800 font-black text-lg tracking-widest uppercase">台中慈濟醫院藥學部</p>
+            <p className="text-slate-800 font-black text-lg tracking-widest">台中慈濟醫院藥學部</p>
             <p className="text-slate-500 font-bold text-xs">許文馨藥師/胡仁珍藥師 維護</p>
-            <p className="text-slate-400 font-bold text-[10px] mt-1 opacity-60 tracking-tighter">2026年1月製</p>
+            <p className="text-slate-400 font-bold text-[10px] opacity-60">2026年1月製</p>
           </div>
         </main>
 
-        <nav className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-slate-200 h-16 flex items-center justify-around px-12 pb-2 z-50">
+        <nav className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-slate-200 h-16 flex items-center justify-around pb-2 z-50">
           <button 
             onClick={() => setActiveTab(AppTab.MEDICINE)}
-            className={`flex flex-col items-center gap-1 transition-all duration-300 flex-1 ${activeTab === AppTab.MEDICINE ? 'text-[#006241] scale-110' : 'text-slate-400'}`}
+            className={`flex flex-col items-center gap-1 flex-1 ${activeTab === AppTab.MEDICINE ? 'text-[#006241]' : 'text-slate-400'}`}
           >
             <i className="fas fa-search-location text-xl"></i>
             <span className="text-[10px] font-bold">儲位查詢</span>
           </button>
           <button 
             onClick={() => setActiveTab(AppTab.SYNC)}
-            className={`flex flex-col items-center gap-1 transition-all duration-300 flex-1 ${activeTab === AppTab.SYNC ? 'text-[#006241] scale-110' : 'text-slate-400'}`}
+            className={`flex flex-col items-center gap-1 flex-1 ${activeTab === AppTab.SYNC ? 'text-[#006241]' : 'text-slate-400'}`}
           >
-            <div className="relative">
-              <i className="fas fa-database text-xl"></i>
-              {isLoading && <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-              </span>}
-            </div>
+            <i className="fas fa-database text-xl"></i>
             <span className="text-[10px] font-bold">更新來源</span>
           </button>
         </nav>
