@@ -69,7 +69,7 @@ const MedicineQuery: React.FC<MedicineQueryProps> = ({ medicines, isLoading }) =
         {isLoading && medicines.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-32 text-slate-400">
             <div className="w-12 h-12 border-4 border-slate-200 border-t-[#006241] rounded-full animate-spin mb-4"></div>
-            <p className="font-bold tracking-widest text-sm">正在載入最新儲位...</p>
+            <p className="font-black text-sm tracking-widest">資料更新中...</p>
           </div>
         ) : filteredResults.length > 0 ? (
           filteredResults.map((med, idx) => {
@@ -79,7 +79,7 @@ const MedicineQuery: React.FC<MedicineQueryProps> = ({ medicines, isLoading }) =
             return (
               <div 
                 key={med.id || idx} 
-                className="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 flex flex-col active:scale-[0.98] transition-all duration-200"
+                className="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 flex flex-col active:scale-[0.98] transition-all duration-200 animate-fade-in"
               >
                 <div className="bg-slate-50/50 px-6 py-8 border-b border-slate-100 flex items-center gap-4">
                   <div className="w-2 h-12 bg-[#006241] rounded-full shrink-0"></div>
@@ -97,9 +97,6 @@ const MedicineQuery: React.FC<MedicineQueryProps> = ({ medicines, isLoading }) =
                   <div className="text-7xl sm:text-8xl font-black font-sans text-[#006241] tracking-tighter leading-none mt-2">
                     {highlightText(med['儲位'] || '--', searchQuery)}
                   </div>
-                  <div className="absolute bottom-4 right-6 text-slate-100 font-black text-6xl italic select-none pointer-events-none opacity-50">
-                    #{idx + 1}
-                  </div>
                 </div>
               </div>
             );
@@ -110,7 +107,7 @@ const MedicineQuery: React.FC<MedicineQueryProps> = ({ medicines, isLoading }) =
               <i className="fas fa-search text-2xl text-slate-300"></i>
             </div>
             <p className="font-black text-xl text-slate-800">查無此藥品</p>
-            <p className="text-slate-400 font-bold text-xs mt-2">請更換關鍵字或儲位編號</p>
+            <p className="text-slate-400 font-bold text-xs mt-2">請確認輸入是否正確</p>
           </div>
         )}
       </div>

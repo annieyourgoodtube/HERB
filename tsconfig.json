@@ -10,7 +10,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -20,6 +20,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["index.tsx", "App.tsx", "types.ts", "env.d.ts", "components/**/*"],
+  "include": ["**/*.ts", "**/*.tsx", "env.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
