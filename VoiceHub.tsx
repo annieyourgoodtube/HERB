@@ -109,18 +109,24 @@ const VoiceHub: React.FC = () => {
             scriptProcessor.connect(inputCtx.destination);
           },
           onmessage: async (message: LiveServerMessage) => {
-            if (!message.serverContent) return;
-            const content = message.serverContent;
+            // Fix: Use local variable for serverContent to satisfy TS strict null checks
+            const serverContent = message.serverContent;
+            if (!serverContent) return;
 
-            // Process transcriptions
-            if (content.outputTranscription?.text) {
-               setTranscripts(prev => [...prev.slice(-4), `Gemini: ${content.outputTranscription!.text}`]);
-            } else if (content.inputTranscription?.text) {
-               setTranscripts(prev => [...prev.slice(-4), `您: ${content.inputTranscription!.text}`]);
+            // Process transcriptions safely
+            const outTrans = serverContent.outputTranscription;
+            const inTrans = serverContent.inputTranscription;
+
+            if (outTrans && outTrans.text) {
+               setTranscripts(prev => [...prev.slice(-4), `Gemini: ${outTrans.text}`]);
+            } else if (inTrans && inTrans.text) {
+               setTranscripts(prev => [...prev.slice(-4), `您: ${inTrans.text}`]);
             }
 
             // Correct handling of audio playback queue
-            const base64Audio = content.modelTurn?.parts?.[0]?.inlineData?.data;
+            const modelTurn = serverContent.modelTurn;
+            const base64Audio = modelTurn?.parts?.[0]?.inlineData?.data;
+            
             if (base64Audio) {
               const audioCtx = outputAudioContextRef.current;
               if (audioCtx) {
@@ -136,7 +142,7 @@ const VoiceHub: React.FC = () => {
               }
             }
 
-            if (content.interrupted) {
+            if (serverContent.interrupted) {
               sourcesRef.current.forEach(s => s.stop());
               sourcesRef.current.clear();
               nextStartTimeRef.current = 0;
