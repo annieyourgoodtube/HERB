@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { GoogleGenAI, Modality, LiveServerMessage } from '@google/genai';
 
@@ -13,7 +12,6 @@ const VoiceHub: React.FC = () => {
   const nextStartTimeRef = useRef(0);
   const sourcesRef = useRef<Set<AudioBufferSourceNode>>(new Set());
 
-  // Fix: Manual implementation of decode as required.
   const decode = (base64: string) => {
     const binaryString = atob(base64);
     const len = binaryString.length;
@@ -24,7 +22,6 @@ const VoiceHub: React.FC = () => {
     return bytes;
   };
 
-  // Fix: Manual implementation of encode as required.
   const encode = (bytes: Uint8Array) => {
     let binary = '';
     const len = bytes.byteLength;
@@ -34,7 +31,6 @@ const VoiceHub: React.FC = () => {
     return btoa(binary);
   };
 
-  // Fix: Proper decoding of raw PCM audio data.
   const decodeAudioData = async (
     data: Uint8Array,
     ctx: AudioContext,
@@ -80,7 +76,6 @@ const VoiceHub: React.FC = () => {
       audioContextRef.current = inputCtx;
       outputAudioContextRef.current = outputCtx;
 
-      // Fix: Initializing GoogleGenAI with named parameter and process.env.API_KEY.
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       
       const sessionPromise = ai.live.connect({
@@ -105,7 +100,6 @@ const VoiceHub: React.FC = () => {
                 mimeType: 'audio/pcm;rate=16000',
               };
               
-              // Fix: Solely relying on sessionPromise resolves.
               sessionPromise.then(session => {
                 session.sendRealtimeInput({ media: pcmBlob });
               });
@@ -115,15 +109,18 @@ const VoiceHub: React.FC = () => {
             scriptProcessor.connect(inputCtx.destination);
           },
           onmessage: async (message: LiveServerMessage) => {
+            if (!message.serverContent) return;
+            const content = message.serverContent;
+
             // Process transcriptions
-            if (message.serverContent?.outputTranscription) {
-               setTranscripts(prev => [...prev.slice(-4), `Gemini: ${message.serverContent.outputTranscription!.text}`]);
-            } else if (message.serverContent?.inputTranscription) {
-               setTranscripts(prev => [...prev.slice(-4), `您: ${message.serverContent.inputTranscription!.text}`]);
+            if (content.outputTranscription?.text) {
+               setTranscripts(prev => [...prev.slice(-4), `Gemini: ${content.outputTranscription!.text}`]);
+            } else if (content.inputTranscription?.text) {
+               setTranscripts(prev => [...prev.slice(-4), `您: ${content.inputTranscription!.text}`]);
             }
 
-            // Fix: Correct handling of audio playback queue for gapless playback.
-            const base64Audio = message.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
+            // Correct handling of audio playback queue
+            const base64Audio = content.modelTurn?.parts?.[0]?.inlineData?.data;
             if (base64Audio) {
               const audioCtx = outputAudioContextRef.current;
               if (audioCtx) {
@@ -139,7 +136,7 @@ const VoiceHub: React.FC = () => {
               }
             }
 
-            if (message.serverContent?.interrupted) {
+            if (content.interrupted) {
               sourcesRef.current.forEach(s => s.stop());
               sourcesRef.current.clear();
               nextStartTimeRef.current = 0;
