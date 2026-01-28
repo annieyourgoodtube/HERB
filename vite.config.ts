@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 針對 GitHub Pages 子目錄 https://annieyourgoodtube.github.io/HERB/
-  base: '/HERB/',
+  // 使用相對路徑基底，這是 GitHub Pages 最保險的設定
+  base: './',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./', import.meta.url))
