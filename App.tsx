@@ -85,8 +85,8 @@ const App: React.FC = () => {
     <div className="h-screen bg-slate-100 flex justify-center overflow-hidden font-sans">
       <div className="w-full max-w-md bg-white flex flex-col relative shadow-2xl border-x border-slate-200">
         <header className="bg-[#006241] text-white p-4 pt-6 pb-8 shadow-md shrink-0 z-20">
-          <div className="px-1">
-            <h1 className="text-2xl font-black tracking-tighter text-green-50 mb-1">中藥儲位-快速查詢</h1>
+          <div className="px-1 text-center">
+            <h1 className="text-2xl font-black tracking-tighter text-green-50 mb-1">中藥儲位快速查詢</h1>
             <div className="text-lg font-black text-green-100 tracking-widest mt-1">
               台中慈濟醫院藥學部
             </div>
@@ -103,7 +103,7 @@ const App: React.FC = () => {
           <div className="py-14 px-6 text-center space-y-2 border-t border-slate-100 bg-white/50">
             <p className="text-slate-800 font-black text-lg tracking-widest">台中慈濟醫院藥學部</p>
             <p className="text-slate-500 font-bold text-xs">許文馨藥師 / 胡仁珍藥師 維護</p>
-            <p className="text-slate-400 font-bold text-[10px] opacity-60 uppercase">Revision 2026.01</p>
+            <p className="text-slate-400 font-bold text-[10px] opacity-60 uppercase tracking-tighter">最後更新版本: 2026.01</p>
           </div>
         </main>
 
@@ -119,8 +119,8 @@ const App: React.FC = () => {
             onClick={() => setActiveTab(AppTab.SYNC)}
             className={`flex flex-col items-center gap-1 flex-1 transition-all ${activeTab === AppTab.SYNC ? 'text-[#006241] scale-110' : 'text-slate-400 opacity-60'}`}
           >
-            <i className="fas fa-database text-xl"></i>
-            <span className="text-[10px] font-bold">更新來源</span>
+            <i className="fas fa-sync-alt text-xl"></i>
+            <span className="text-[10px] font-bold">同步資料</span>
           </button>
         </nav>
       </div>
