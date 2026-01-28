@@ -2,9 +2,11 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath } from 'url'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 必須與您的 Repository 名稱完全一致（注意大小寫）
+  // 注意：這裡必須與你的 GitHub Repository 名稱完全一致
+  // 你的連結是 /HERB/，所以這裡是 /HERB/
   base: '/HERB/',
   resolve: {
     alias: {
@@ -12,7 +14,7 @@ export default defineConfig({
     }
   },
   define: {
-    // 使用 JSON.stringify 確保字串安全注入，即使沒設定也不會報錯
+    // 這樣定義可以確保 process.env 在瀏覽器中不會噴錯
     'process.env': {
       API_KEY: JSON.stringify(process.env.API_KEY || "")
     }
@@ -21,12 +23,6 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
-    sourcemap: false,
-    // 確保 rollup 不會錯誤處理外部模組
-    rollupOptions: {
-      output: {
-        manualChunks: undefined
-      }
-    }
+    sourcemap: false
   }
 })
