@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [react()],
-  // 必須與 https://annieyourgoodtube.github.io/HERB/ 中的路徑一致
+  // 必須與 GitHub Repository 的名稱完全一致
   base: '/HERB/',
   resolve: {
     alias: {
