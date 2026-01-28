@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [react()],
+  base: './',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./', import.meta.url))
