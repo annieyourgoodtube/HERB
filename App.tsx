@@ -66,9 +66,9 @@ const App: React.FC = () => {
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-8">
             <i className="fas fa-compass text-3xl"></i>
           </div>
-          <h2 className="text-2xl font-black mb-4 tracking-tighter text-white">請使用外部瀏覽器開啟</h2>
+          <h2 className="text-2xl font-black mb-4 tracking-tighter text-white">請點擊右上角選單<br/>使用外部瀏覽器開啟</h2>
           <p className="text-green-100 text-sm leading-relaxed mb-10 opacity-90">
-            為確保搜尋效能，請點選右上角圖示切換。
+            內建瀏覽器效能受限，請切換至 Safari 或 Chrome 以獲得最佳搜尋體驗。
           </p>
           <button 
             onClick={() => setIsRestrictedBrowser(false)}
@@ -110,14 +110,14 @@ const App: React.FC = () => {
         <nav className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-slate-200 h-16 flex items-center justify-around pb-2 z-50">
           <button 
             onClick={() => setActiveTab(AppTab.MEDICINE)}
-            className={`flex flex-col items-center gap-1 flex-1 ${activeTab === AppTab.MEDICINE ? 'text-[#006241]' : 'text-slate-400'}`}
+            className={`flex flex-col items-center gap-1 flex-1 transition-all ${activeTab === AppTab.MEDICINE ? 'text-[#006241] scale-110' : 'text-slate-400 opacity-60'}`}
           >
             <i className="fas fa-search-location text-xl"></i>
             <span className="text-[10px] font-bold">儲位查詢</span>
           </button>
           <button 
             onClick={() => setActiveTab(AppTab.SYNC)}
-            className={`flex flex-col items-center gap-1 flex-1 ${activeTab === AppTab.SYNC ? 'text-[#006241]' : 'text-slate-400'}`}
+            className={`flex flex-col items-center gap-1 flex-1 transition-all ${activeTab === AppTab.SYNC ? 'text-[#006241] scale-110' : 'text-slate-400 opacity-60'}`}
           >
             <i className="fas fa-database text-xl"></i>
             <span className="text-[10px] font-bold">更新來源</span>
