@@ -58,7 +58,7 @@ const App: React.FC = () => {
 
   if (isRestrictedBrowser) {
     return (
-      <div className="h-screen bg-[#006241] flex flex-col items-center justify-center p-8 text-white text-center relative overflow-hidden">
+      <div className="h-screen bg-[#006241] flex flex-col items-center justify-center p-8 text-white text-center relative overflow-hidden font-sans">
         <div className="absolute top-4 right-4 animate-pulse">
           <i className="fas fa-long-arrow-alt-up text-5xl text-green-300 rotate-45"></i>
         </div>
@@ -66,9 +66,9 @@ const App: React.FC = () => {
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-8">
             <i className="fas fa-compass text-3xl"></i>
           </div>
-          <h2 className="text-2xl font-black mb-4 tracking-tighter text-white">請點擊右上角選單<br/>使用外部瀏覽器開啟</h2>
+          <h2 className="text-2xl font-black mb-4 tracking-tighter">請點擊右上角選單<br/>使用外部瀏覽器開啟</h2>
           <p className="text-green-100 text-sm leading-relaxed mb-10 opacity-90">
-            內建瀏覽器效能受限，請切換至 Safari 或 Chrome 以獲得最佳搜尋體驗。
+            內建瀏覽器（如 LINE）效能受限，請切換至 Safari 或 Chrome 以獲得最佳搜尋體驗。
           </p>
           <button 
             onClick={() => setIsRestrictedBrowser(false)}
@@ -102,8 +102,8 @@ const App: React.FC = () => {
           
           <div className="py-14 px-6 text-center space-y-2 border-t border-slate-100 bg-white/50">
             <p className="text-slate-800 font-black text-lg tracking-widest">台中慈濟醫院藥學部</p>
-            <p className="text-slate-500 font-bold text-xs">許文馨藥師/胡仁珍藥師 維護</p>
-            <p className="text-slate-400 font-bold text-[10px] opacity-60">2026年1月製</p>
+            <p className="text-slate-500 font-bold text-xs">許文馨藥師 / 胡仁珍藥師 維護</p>
+            <p className="text-slate-400 font-bold text-[10px] opacity-60 uppercase">Revision 2026.01</p>
           </div>
         </main>
 
