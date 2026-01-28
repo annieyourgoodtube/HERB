@@ -5,16 +5,14 @@ import { fileURLToPath } from 'url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 注意：這裡必須與你的 GitHub Repository 名稱完全一致
-  // 你的連結是 /HERB/，所以這裡是 /HERB/
-  base: '/HERB/',
+  // 使用相對路徑基底，這是 GitHub Pages 解決白屏的最強方案
+  base: './',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./', import.meta.url))
     }
   },
   define: {
-    // 這樣定義可以確保 process.env 在瀏覽器中不會噴錯
     'process.env': {
       API_KEY: JSON.stringify(process.env.API_KEY || "")
     }

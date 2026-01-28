@@ -18,6 +18,7 @@ const App: React.FC = () => {
       const response = await fetch(`${CSV_URL}&t=${Date.now()}`, {
         cache: 'no-cache'
       });
+      if (!response.ok) throw new Error('CSV 下載失敗');
       const text = await response.text();
       
       const rows = text.replace(/\uFEFF/g, '').split('\n').filter(row => row.trim());
@@ -36,7 +37,7 @@ const App: React.FC = () => {
         setLastSync(new Date().toLocaleString('zh-TW', { hour12: false }));
       }
     } catch (error) {
-      console.error("同步錯誤:", error);
+      console.error("同步失敗:", error);
     } finally {
       setIsLoading(false);
     }
