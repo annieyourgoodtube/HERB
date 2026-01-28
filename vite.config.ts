@@ -4,11 +4,15 @@ import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [react()],
-  // 針對 GitHub Pages 部署，必須設定為專案儲存庫名稱（區分大小寫）
+  // GitHub Pages 部署路徑：https://<username>.github.io/HERB/
   base: '/HERB/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./', import.meta.url))
     }
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
   }
 })
