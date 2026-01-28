@@ -51,12 +51,11 @@
 <body>
     <div id="root">
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; color:#64748b;">
-            <div style="font-weight:bold; margin-bottom:10px;">系統載入中...</div>
-            <div style="font-size:12px; opacity:0.7;">若長時間無反應，請檢查網路連線</div>
+            <div style="font-weight:bold; margin-bottom:10px;">系統啟動中...</div>
+            <div style="font-size:12px; opacity:0.7;">若看到此畫面超過 5 秒，請嘗試重新整理</div>
         </div>
     </div>
-    <!-- 部署時，Vite 會自動將此路徑替換為打包後的資產路徑 -->
-    <script type="module" src="./index.tsx"></script>
-<script type="module" src="/index.tsx"></script>
+    <!-- Vite 專案的標準入口點 -->
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>

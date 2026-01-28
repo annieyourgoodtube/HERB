@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 使用相對路徑基底，這是 GitHub Pages 解決白屏的最強方案
-  base: './',
+  // 針對 GitHub Pages 子目錄 https://annieyourgoodtube.github.io/HERB/
+  base: '/HERB/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./', import.meta.url))
