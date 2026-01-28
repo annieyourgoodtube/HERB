@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 使用相對路徑基底，這是 GitHub Pages 最保險的設定
+  // 相對路徑基底是部署到 GitHub Pages 子目錄最穩健的選擇
   base: './',
   resolve: {
     alias: {
@@ -21,6 +21,11 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
-    sourcemap: false
+    sourcemap: false,
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL('./index.html', import.meta.url))
+      }
+    }
   }
 })

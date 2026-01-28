@@ -51,12 +51,11 @@
 <body>
     <div id="root">
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; color:#64748b;">
-            <div style="font-weight:bold; margin-bottom:10px;">系統啟動中...</div>
-            <div style="font-size:12px; opacity:0.7;">若看到此畫面超過 5 秒，請嘗試重新整理</div>
+            <div style="font-weight:bold; margin-bottom:10px; font-size:1.2rem;">系統載入中...</div>
+            <div style="font-size:12px; opacity:0.7;">正在從雲端獲取最新儲位資料</div>
         </div>
     </div>
-    <!-- 必須使用相對路徑 ./ 才能讓 Vite 正確找到 entry point -->
-    <script type="module" src="./index.tsx"></script>
-<script type="module" src="/index.tsx"></script>
+    <!-- Vite 的標準入口點，不應受 importmap 干擾 -->
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
