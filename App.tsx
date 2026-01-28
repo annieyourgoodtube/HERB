@@ -25,6 +25,7 @@ const App: React.FC = () => {
       if (rows.length >= 2) {
         const headers = rows[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
         const parsedData = rows.slice(1).map((row, index) => {
+          // 更強健的 CSV 分割處理，處理引號內的逗號
           const values = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
           const cleanValues = values.map(v => v.trim().replace(/^"|"$/g, ''));
           const entry: any = { id: `med-${index}` };
