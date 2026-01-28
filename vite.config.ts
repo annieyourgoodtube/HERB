@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [react()],
-  // 必須精確匹配 GitHub Repository 名稱
+  // 必須與您的 Repository 名稱完全一致（注意大小寫）
   base: '/HERB/',
   resolve: {
     alias: {
@@ -12,15 +12,21 @@ export default defineConfig({
     }
   },
   define: {
-    // 修正：確保 API_KEY 能被正確注入，而非空物件
+    // 使用 JSON.stringify 確保字串安全注入，即使沒設定也不會報錯
     'process.env': {
-      API_KEY: process.env.API_KEY
+      API_KEY: JSON.stringify(process.env.API_KEY || "")
     }
   },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
-    sourcemap: false
+    sourcemap: false,
+    // 確保 rollup 不會錯誤處理外部模組
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
   }
 })

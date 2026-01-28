@@ -50,7 +50,8 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- Vite 入口腳本 -->
-    <script type="module" src="/index.tsx"></script>
+    <!-- 使用相對路徑，讓 Vite 打包時能正確對應到 /HERB/ 子目錄 -->
+    <script type="module" src="./index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
