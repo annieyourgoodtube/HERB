@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { AppTab } from '@/types';
-import SyncPanel from '@/components/SyncPanel';
-import MedicineQuery from '@/components/MedicineQuery';
+import { AppTab } from './types';
+import SyncPanel from './components/SyncPanel';
+import MedicineQuery from './components/MedicineQuery';
 
 const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrTqfNzL_sefX1UFTFgre5x52StaKB-pAaj7HhZtUHX4t3U5ew4SQA_uPZaFSzuWB3UPQ9nEI_Devt/pub?output=csv';
 
