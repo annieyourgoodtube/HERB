@@ -12,8 +12,10 @@ export default defineConfig({
     }
   },
   define: {
-    // 防止程式碼因訪問 process 而崩潰
-    'process.env': {}
+    // 修正：確保 API_KEY 能被正確注入，而非空物件
+    'process.env': {
+      API_KEY: process.env.API_KEY
+    }
   },
   build: {
     outDir: 'dist',
