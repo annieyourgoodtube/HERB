@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [react()],
-  // GitHub Pages 部署路徑，必須與 Repo 名稱一致（區分大小寫）
+  // 這裡必須與 GitHub 上的 Repository 名稱完全一致（包含大小寫）
   base: '/HERB/',
   resolve: {
     alias: {
@@ -14,6 +14,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    emptyOutDir: true
+    emptyOutDir: true,
+    sourcemap: false
   }
 })
