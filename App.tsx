@@ -19,11 +19,14 @@ const App: React.FC = () => {
       if (!response.ok) throw new Error('CSV 下載失敗');
       const text = await response.text();
       
+      if (!text || text.length < 10) {
+        throw new Error('CSV 資料內容過短');
+      }
+
       const rows = text.replace(/\uFEFF/g, '').split('\n').filter(row => row.trim());
       if (rows.length >= 2) {
         const headers = rows[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
         const parsedData = rows.slice(1).map((row, index) => {
-          // 簡單的 CSV 分割處理
           const values = row.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
           const entry: any = { id: `med-${index}` };
           headers.forEach((header, i) => {
@@ -36,6 +39,7 @@ const App: React.FC = () => {
       }
     } catch (error) {
       console.error("同步失敗:", error);
+      // 即使失敗也設為非載入狀態，避免畫面卡死
     } finally {
       setIsLoading(false);
     }
