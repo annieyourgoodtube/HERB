@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [react()],
-  // 強制使用相對路徑，解決 GitHub Pages 非根目錄部署的問題
+  // 強制使用相對路徑，這是 GitHub Pages 部署成功的關鍵
   base: './',
   resolve: {
     alias: {
@@ -15,11 +15,6 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        format: 'es'
-      }
-    }
+    sourcemap: false
   }
 })

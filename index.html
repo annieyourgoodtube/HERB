@@ -55,15 +55,13 @@
 </head>
 <body>
     <div id="root">
-        <!-- 初始載入畫面：React 成功啟動後會取代此內容 -->
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif;">
             <div class="loader-ring"></div>
             <div style="font-weight:900; margin-top:24px; font-size:1.5rem; color: #006241;">系統載入中...</div>
-            <div id="status-text" style="font-size:12px; color: #94a3b8; margin-top:10px;">正在啟動應用程式</div>
+            <div id="status-text" style="font-size:12px; color: #94a3b8; margin-top:10px;">正在啟動應用程式，請稍候</div>
         </div>
     </div>
 
-    <!-- 錯誤顯示區 -->
     <div id="error-display">
         <strong>⚠️ 程式碼執行發生錯誤：</strong>
         <div id="error-message" style="margin-top: 5px;"></div>
@@ -71,7 +69,6 @@
     </div>
 
     <script>
-        // 監控 JavaScript 錯誤
         window.onerror = function(msg, url, line, col, error) {
             var display = document.getElementById('error-display');
             var msgDiv = document.getElementById('error-message');
@@ -79,7 +76,6 @@
             msgDiv.innerText = msg + '\n於 ' + url + ':' + line;
             return false;
         };
-        // 監控 Promise 錯誤 (例如 API 失敗)
         window.onunhandledrejection = function(event) {
             var display = document.getElementById('error-display');
             var msgDiv = document.getElementById('error-message');
@@ -88,7 +84,8 @@
         };
     </script>
 
-    <!-- 在 Vite 專案中，這裡的路徑必須是指向原始碼，Vite 在 Build 時會自動處理 -->
-    <script type="module" src="/index.tsx"></script>
+    <!-- 注意：在 GitHub Pages 子路徑，開頭不能有斜線，必須使用相對路徑 ./ -->
+    <script type="module" src="./index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
