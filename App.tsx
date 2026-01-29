@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { MedicineRecord } from './types';
-import MedicineTable from './components/MedicineTable';
+import SearchTable from './components/SearchTable';
 
 const SHEET_ID = '1kd_RkujWUHfpo6SJmvicN9PrBFqK3QeZps4fHuoFdNg';
 const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
@@ -116,7 +116,7 @@ const App: React.FC = () => {
             <p className="mt-12 text-emerald-600 font-black text-4xl">同步雲端資料中...</p>
           </div>
         ) : (
-          <MedicineTable data={filteredData} />
+          <SearchTable data={filteredData} />
         )}
       </main>
     </div>
