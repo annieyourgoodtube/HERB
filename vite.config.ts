@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [react()],
-  // 針對 GitHub Pages 子目錄環境的最佳設定
+  // 使用相對路徑，讓 GitHub Pages 不管放在哪個子目錄都能運作
   base: './',
   resolve: {
     alias: {

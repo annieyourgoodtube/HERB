@@ -21,6 +21,20 @@
             border: 6px solid #e2e8f0; border-top: 6px solid #006241;
             border-radius: 50%; animation: spin 0.8s linear infinite;
         }
+        #error-msg {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 12px;
+            z-index: 9999;
+            border: 1px solid #fecaca;
+        }
     </style>
 <script type="importmap">
 {
@@ -38,15 +52,31 @@
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
+    <div id="error-msg"></div>
     <div id="root">
-        <!-- 如果 React 成功啟動，這裡的內容會被立即替換 -->
+        <!-- 初始載入畫面：如果 JS 成功啟動，這段內容會被 React 取代 -->
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif;">
             <div class="loader-ring"></div>
             <div style="font-weight:900; margin-top:24px; font-size:1.5rem; color: #006241;">系統載入中...</div>
-            <div style="font-size:12px; color: #94a3b8; margin-top:10px;">如果畫面未跳轉，請重整頁面</div>
+            <div id="timeout-hint" style="font-size:12px; color: #94a3b8; margin-top:10px;">正在啟動應用程式，請稍候</div>
         </div>
     </div>
-    <!-- Vite 專案標準入口 -->
-    <script type="module" src="/index.tsx"></script>
+    <!-- 關鍵：使用相對路徑 ./ 避免 GitHub Pages 路徑錯誤，並移除 importmap -->
+    <script type="module" src="./index.tsx"></script>
+    <script>
+        // 錯誤監控與超時提示
+        window.onerror = function(msg, url, line) {
+            const errDiv = document.getElementById('error-msg');
+            errDiv.style.display = 'block';
+            errDiv.innerHTML = `偵測到啟動錯誤: ${msg} (Line: ${line})`;
+        };
+        setTimeout(() => {
+            const hint = document.getElementById('timeout-hint');
+            if (hint && document.querySelector('.loader-ring')) {
+                hint.innerHTML = '載入時間較長？請確認網路環境或<a href="." style="color:#006241;text-decoration:underline;">重新整頁面</a>';
+            }
+        }, 5000);
+    </script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
