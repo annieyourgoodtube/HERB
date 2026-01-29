@@ -80,22 +80,19 @@ const App: React.FC = () => {
       {/* 標題區塊 */}
       <header className="bg-emerald-800 text-white pt-12 pb-20 px-4 shadow-2xl relative overflow-hidden">
         <div className="max-w-5xl mx-auto text-center relative z-10">
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter mb-8 drop-shadow-lg">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter mb-6 drop-shadow-lg">
             中藥儲位查詢
           </h1>
-          <div className="space-y-2">
-            <p className="text-2xl md:text-4xl font-bold opacity-80 italic">台中慈濟醫院藥學部</p>
-            <p className="text-xl md:text-3xl font-black tracking-[0.3em] text-emerald-200">
-              胡仁珍 X 許文馨 製作
-            </p>
-          </div>
+          <p className="text-2xl md:text-5xl font-bold opacity-90 tracking-wide text-emerald-50">
+            台中慈濟醫院藥學部
+          </p>
         </div>
         {/* 裝飾背景 */}
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-emerald-600 rounded-full opacity-20"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-emerald-900 rounded-full opacity-30"></div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 -mt-12 space-y-12">
+      <main className="max-w-6xl mx-auto px-4 -mt-12 space-y-12 min-h-[50vh]">
         {/* 搜尋輸入 */}
         <div className="relative z-20">
           <input 
@@ -124,6 +121,16 @@ const App: React.FC = () => {
           <ResultTable data={filteredData} />
         )}
       </main>
+
+      {/* 頁尾資訊 - 黑色大字 */}
+      <footer className="mt-24 py-12 px-4 text-center space-y-4">
+        <p className="text-2xl md:text-4xl font-bold text-black">
+          胡仁珍 X 許文馨 藥師維護
+        </p>
+        <p className="text-xl md:text-3xl font-bold text-black opacity-80">
+          2026年1月製作
+        </p>
+      </footer>
     </div>
   );
 };
