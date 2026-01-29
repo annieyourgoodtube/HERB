@@ -2,10 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath } from 'url'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 使用相對路徑基底，確保在 GitHub Pages (annieyourgoodtube.github.io/HERB/) 能正確讀取 assets
+  // 針對 GitHub Pages 子目錄環境的最佳設定
   base: './',
   resolve: {
     alias: {
@@ -21,11 +20,6 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
-    sourcemap: false,
-    rollupOptions: {
-      input: {
-        main: fileURLToPath(new URL('./index.html', import.meta.url))
-      }
-    }
+    sourcemap: false
   }
 })
