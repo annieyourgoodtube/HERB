@@ -21,20 +21,6 @@
             border: 6px solid #e2e8f0; border-top: 6px solid #006241;
             border-radius: 50%; animation: spin 0.8s linear infinite;
         }
-        #error-msg {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: #fee2e2;
-            color: #b91c1c;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-size: 12px;
-            z-index: 9999;
-            border: 1px solid #fecaca;
-        }
     </style>
 <script type="importmap">
 {
@@ -49,34 +35,25 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body>
-    <div id="error-msg"></div>
     <div id="root">
-        <!-- 初始載入畫面：如果 JS 成功啟動，這段內容會被 React 取代 -->
+        <!-- 初始載入畫面 -->
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif;">
             <div class="loader-ring"></div>
             <div style="font-weight:900; margin-top:24px; font-size:1.5rem; color: #006241;">系統載入中...</div>
-            <div id="timeout-hint" style="font-size:12px; color: #94a3b8; margin-top:10px;">正在啟動應用程式，請稍候</div>
+            <div id="status-text" style="font-size:12px; color: #94a3b8; margin-top:10px;">正在讀取藥典資料</div>
         </div>
     </div>
-    <!-- 關鍵：使用相對路徑 ./ 避免 GitHub Pages 路徑錯誤，並移除 importmap -->
+    <!-- 使用相對路徑引入入口檔案，Vite 在 Build 時會自動將其替換為編譯後的 JS -->
     <script type="module" src="./index.tsx"></script>
     <script>
-        // 錯誤監控與超時提示
-        window.onerror = function(msg, url, line) {
-            const errDiv = document.getElementById('error-msg');
-            errDiv.style.display = 'block';
-            errDiv.innerHTML = `偵測到啟動錯誤: ${msg} (Line: ${line})`;
-        };
+        // 除錯監控：如果 5 秒後 React 還沒掛載，顯示提示
         setTimeout(() => {
-            const hint = document.getElementById('timeout-hint');
-            if (hint && document.querySelector('.loader-ring')) {
-                hint.innerHTML = '載入時間較長？請確認網路環境或<a href="." style="color:#006241;text-decoration:underline;">重新整頁面</a>';
+            if (document.querySelector('.loader-ring')) {
+                document.getElementById('status-text').innerHTML = '載入稍慢，請確認網路環境或 <a href="javascript:location.reload()" style="color:#006241;text-decoration:underline;">重新整理</a>';
             }
         }, 5000);
     </script>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>
