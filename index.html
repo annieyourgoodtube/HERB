@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>台中慈濟中藥儲位查詢</title>
+    <!-- 使用 CDN 載入圖示和樣式 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -21,21 +22,18 @@
             border: 6px solid #e2e8f0; border-top: 6px solid #006241;
             border-radius: 50%; animation: spin 0.8s linear infinite;
         }
-        #error-display {
+        #error-overlay {
             display: none;
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: #fee2e2;
-            border: 2px solid #ef4444;
-            color: #b91c1c;
-            padding: 15px;
-            border-radius: 12px;
+            inset: 0;
+            background: white;
             z-index: 9999;
-            font-family: monospace;
-            font-size: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
     </style>
 <script type="importmap">
@@ -55,37 +53,29 @@
 </head>
 <body>
     <div id="root">
+        <!-- 初始載入動畫，React 啟動後會自動替換這裡的內容 -->
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif;">
             <div class="loader-ring"></div>
             <div style="font-weight:900; margin-top:24px; font-size:1.5rem; color: #006241;">系統載入中...</div>
-            <div id="status-text" style="font-size:12px; color: #94a3b8; margin-top:10px;">正在啟動應用程式，請稍候</div>
+            <div style="font-size:12px; color: #94a3b8; margin-top:10px;">如果畫面停留過久，請點擊下方的重新整理</div>
+            <button onclick="location.reload()" style="margin-top: 30px; padding: 10px 20px; background: #006241; color: white; border-radius: 99px; font-weight: bold; border: none;">重新整理</button>
         </div>
     </div>
 
-    <div id="error-display">
-        <strong>⚠️ 程式碼執行發生錯誤：</strong>
-        <div id="error-message" style="margin-top: 5px;"></div>
-        <button onclick="location.reload()" style="margin-top: 10px; background: #b91c1c; color: white; padding: 4px 12px; border-radius: 6px; font-weight: bold;">重新整理</button>
-    </div>
+    <!-- 錯誤診斷區（隱藏中，僅在出錯時顯示） -->
+    <div id="error-log" style="display:none; position:fixed; bottom:0; left:0; right:0; background:rgba(0,0,0,0.8); color:white; font-size:10px; padding:10px; font-family:monospace; z-index:10000; max-height:100px; overflow:auto;"></div>
 
     <script>
-        window.onerror = function(msg, url, line, col, error) {
-            var display = document.getElementById('error-display');
-            var msgDiv = document.getElementById('error-message');
-            display.style.display = 'block';
-            msgDiv.innerText = msg + '\n於 ' + url + ':' + line;
+        // 除錯用：擷取任何 JavaScript 報錯並顯示出來
+        window.onerror = function(msg, url, line) {
+            const log = document.getElementById('error-log');
+            log.style.display = 'block';
+            log.innerHTML += '<div>❌ ' + msg + ' (at line ' + line + ')</div>';
             return false;
-        };
-        window.onunhandledrejection = function(event) {
-            var display = document.getElementById('error-display');
-            var msgDiv = document.getElementById('error-message');
-            display.style.display = 'block';
-            msgDiv.innerText = 'Promise 錯誤: ' + event.reason;
         };
     </script>
 
-    <!-- 注意：在 GitHub Pages 子路徑，開頭不能有斜線，必須使用相對路徑 ./ -->
-    <script type="module" src="./index.tsx"></script>
-<script type="module" src="/index.tsx"></script>
+    <!-- Vite 專案的核心啟動點 -->
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
