@@ -1,30 +1,17 @@
 
-export enum AppTab {
-  MEDICINE = 'MEDICINE',
-  SYNC = 'SYNC'
+export interface MedicineRecord {
+  id: string;
+  name: string;        // 藥名
+  spec: string;        // 規格
+  location: string;    // 儲位
+  isRefrigerated: boolean; // 是否為冰庫
+  category: string;    // 類別
+  stock: number;       // 庫存量
+  unit: string;        // 單位
+  status: string;      // 狀態
 }
 
-export interface Medicine {
-  id: string;
-  name: string;
-  slot: string;
-  category: string;
-  properties: string;
-  usage: string;
-  description: string;
-}
-
-export interface Message {
-  id: string;
-  role: 'user' | 'model';
-  text: string;
-  timestamp: Date;
-  groundingUrls?: Array<{ title: string; uri: string }>;
-}
-
-export interface GeneratedImage {
-  id: string;
-  url: string;
-  prompt: string;
-  timestamp: Date;
+export interface SortState {
+  column: keyof MedicineRecord;
+  direction: 'asc' | 'desc';
 }

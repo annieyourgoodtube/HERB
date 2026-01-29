@@ -1,23 +1,20 @@
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-# 台中慈濟醫院 - 中藥儲位快速查詢系統
+# Run and deploy your AI Studio app
 
-本系統專為中藥局設計，提供快速的藥品儲位檢索功能，支援自動從 Google Sheets 同步數據。
+This contains everything you need to run your app locally.
 
-## 🚀 功能特點
-- **極速查詢**：支援關鍵字與儲位編號快速過濾。
-- **自動同步**：開啟 App 時自動從雲端試算表獲取最新儲位資訊。
-- **行動優化**：針對手機操作優化介面，大字體顯示確保現場閱讀清晰。
-- **離線支援**：採用現代網頁技術，具備良好的載入效能。
+View your app in AI Studio: https://ai.studio/apps/drive/15dSY70j7P4W0gbCuyvtAzRiCkUBULZxU
 
-## 🛠 技術棧
-- **Frontend**: React (ES Modules)
-- **Styling**: Tailwind CSS
-- **Icons**: Font Awesome 6
-- **Data Source**: Google Sheets (CSV)
+## Run Locally
 
-## 📖 使用說明
-1. 開啟首頁即可直接在搜尋框輸入藥名。
-2. 若需手動更新資料，切換至「更新來源」分頁點擊「立即同步」。
+**Prerequisites:**  Node.js
 
----
-*由 台中慈濟醫院藥學部 維護 (2026/01)*
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
