@@ -20,7 +20,8 @@ const App: React.FC = () => {
       const text = await response.text();
       
       if (!text || text.length < 10) {
-        throw new Error('CSV 資料內容過短');
+        setMedicines([]);
+        return;
       }
 
       const rows = text.replace(/\uFEFF/g, '').split('\n').filter(row => row.trim());
@@ -39,7 +40,6 @@ const App: React.FC = () => {
       }
     } catch (error) {
       console.error("同步失敗:", error);
-      // 即使失敗也設為非載入狀態，避免畫面卡死
     } finally {
       setIsLoading(false);
     }
@@ -49,10 +49,7 @@ const App: React.FC = () => {
     fetchMedicines();
 
     const ua = navigator.userAgent || '';
-    const isLine = /Line/i.test(ua);
-    const isFb = /FBAN|FBAV/i.test(ua);
-    
-    if (isLine || isFb) {
+    if (/Line/i.test(ua) || /FBAN|FBAV/i.test(ua)) {
       setIsRestrictedBrowser(true);
     }
   }, [fetchMedicines]);
