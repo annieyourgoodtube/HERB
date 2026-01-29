@@ -63,6 +63,11 @@ const App: React.FC = () => {
   }, []);
 
   const filteredData = useMemo(() => {
+    // 若沒有搜尋字串，只顯示前 10 筆 (避免頁面過長，提升效能)
+    if (!searchTerm) {
+      return data.slice(0, 10);
+    }
+
     const lowerSearch = searchTerm.toLowerCase();
     return data.filter(item => 
       item.name.toLowerCase().includes(lowerSearch) || 
@@ -99,7 +104,7 @@ const App: React.FC = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="請輸入 藥名 或 儲位 查詢..."
-            className="w-full px-10 py-8 md:px-16 md:py-12 bg-white border-[8px] border-emerald-600 rounded-[3rem] text-4xl md:text-6xl font-black focus:ring-[15px] focus:ring-emerald-100 outline-none shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] text-black placeholder:text-slate-200"
+            className="w-full px-6 py-4 md:px-10 md:py-6 bg-white border-4 border-emerald-600 rounded-full text-xl md:text-3xl font-bold focus:ring-4 focus:ring-emerald-100 outline-none shadow-xl text-black placeholder:text-slate-300 transition-all"
             autoFocus
           />
         </div>
