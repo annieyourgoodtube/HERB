@@ -45,14 +45,14 @@
 </head>
 <body>
     <div id="root">
+        <!-- 這是 React 掛載前的初始畫面。如果 React 啟動成功，這段內容會被替換 -->
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; background-color: #f8fafc;">
             <div class="loader-ring"></div>
             <div style="font-weight:900; margin-top:24px; margin-bottom:8px; font-size:1.5rem; color: #006241; letter-spacing: 0.1em;">系統啟動中...</div>
             <div style="font-size:13px; color: #94a3b8; font-weight: bold;">正在載入慈濟中藥儲位資料</div>
         </div>
     </div>
-    <!-- 使用相對路徑 ./ 確保在 GitHub Pages 的子目錄環境下能正確載入檔案 -->
-    <script type="module" src="./index.tsx"></script>
-<script type="module" src="/index.tsx"></script>
+    <!-- 在 Vite 專案中，入口檔案應使用絕對路徑 /index.tsx，Vite 會在 build 時自動處理成正確的 JS 檔案 -->
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>

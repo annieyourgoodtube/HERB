@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 相對路徑基底是部署到 GitHub Pages 子目錄最穩健的選擇
+  // 使用相對路徑基底，確保在 GitHub Pages (annieyourgoodtube.github.io/HERB/) 能正確讀取 assets
   base: './',
   resolve: {
     alias: {
